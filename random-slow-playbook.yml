@@ -6,7 +6,7 @@
 -
 
   # Hosts: where our play will run and options it will run with
-  hosts: linux
+  hosts: client1
   gather_facts: false
   strategy: free
 
