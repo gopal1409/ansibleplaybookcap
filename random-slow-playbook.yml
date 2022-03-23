@@ -1,16 +1,23 @@
 ---
-#any yaml file start with three dashes
-- 
-#this minus indicate a list items. this playbook container a list of plays
-#in yaml the indentaion happen through two space
-  hosts: client2
-  gather_facts: false
+# YAML documents begin with the document separator ---
 
-  #we need to define the list of task to be executed.
-  task:
+# The minus in YAML this indicates a list item.  The playbook contains a list
+# of plays, with each play being a dictionary
+-
+
+  # Hosts: where our play will run and options it will run with
+  hosts: linux
+  gather_facts: false
+  strategy: free
+
+  # Tasks: the list of tasks that will be executed within the play, this section
+  # can also be used for pre and post tasks
+  tasks:
     - name: Task 1
-      command: "/bin/sleep {{10 |random}}"
+      command: "/bin/sleep {{ 10 |random}}"
+
     - name: Task 2
-      command: "/bin/sleep {{10 |random}}"
+      command: "/bin/sleep {{ 10 |random}}"
+
     - name: Task 3
-      command: "/bin/sleep {{10 |random}}"
+      command: "/bin/sleep {{ 10 |random}}"
