@@ -1,0 +1,16 @@
+---
+#any yaml file start with three dashes
+- 
+#this minus indicate a list items. this playbook container a list of plays
+#in yaml the indentaion happen through two space
+  host: client2
+  gather_facts: false
+
+  #we need to define the list of task to be executed.
+  task:
+    - name: Task 1
+      command: "/bin/sleep {{10 |random}}"
+    - name: Task 2
+      command: "/bin/sleep {{10 |random}}"
+    - name: Task 3
+      command: "/bin/sleep {{10 |random}}"
