@@ -26,6 +26,6 @@
         hour: "*"
         day: "*"
         month: "*"
-        weekdays: "*"
+        weekday: "*"
         job: 'logger "ansible-pilot"'
       
