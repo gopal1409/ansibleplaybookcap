@@ -29,7 +29,7 @@
     - name: copy our index.html.j2
       template:
         src: "files/index.html.j2"
-        dest: "/var/www/{{ http_host }}/index.html"
+        dest: "/var/www/html/{{ http_host }}/index.html"
     - name: copy our apache.conf.j2
       template:
         src: "files/apache.conf.j2"
