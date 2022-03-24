@@ -3,6 +3,7 @@
 
 # The minus in YAML this indicates a list item.  The playbook contains a list
 # of plays, with each play being a dictionary
+#any ansible play book run from top to bottom and left to right
 -
 
   # Hosts: where our play will run and options it will run with
@@ -10,6 +11,8 @@
   #gather_facts: false
   vars_files:
     - vars/default.yml
+    
+    #all the variable will go into in mem
   strategy: free
 
   # Tasks: the list of tasks that will be executed within the play, this section
@@ -19,7 +22,7 @@
       apt: update_cache=yes
     - name: create document for your doamin
       file:
-        path: "/var/www//html/{{ http_host }}"
+        path: "/var/www/html/{{ http_host }}"
         state: directory
     - name: install apache2
       apt: name=apache2 state=latest
@@ -34,3 +37,10 @@
       template:
         src: "files/apache.conf.j2"
         dest: "/etc/apache2/sites-available/{{ http_conf }}"
+      #to execute handle we need notify
+      notify: restart-webserver
+  handlers:
+    - name: restart-webserver
+      service:
+        name: apache2 
+        state: restarted
