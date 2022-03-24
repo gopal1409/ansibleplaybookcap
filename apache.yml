@@ -8,7 +8,7 @@
   # Hosts: where our play will run and options it will run with
   hosts: client2
   #gather_facts: false
-  vars:
+  vars_files:
     - vars/default.yml
   strategy: free
 
