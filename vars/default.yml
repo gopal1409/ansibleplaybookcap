@@ -1,0 +1,3 @@
+http_host: "mydomain.local"
+http_conf: "mydomain.conf"
+http_port: "80"

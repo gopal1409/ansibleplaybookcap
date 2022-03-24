@@ -8,6 +8,8 @@
   # Hosts: where our play will run and options it will run with
   hosts: client2
   #gather_facts: false
+  vars:
+    - vars/default.yml
   strategy: free
 
   # Tasks: the list of tasks that will be executed within the play, this section
@@ -15,9 +17,20 @@
   tasks:
     - name: update the casche
       apt: update_cache=yes
-
+    - name: create document for your doamin
+      file:
+        path: "/var/www/{{ http_host }}"
+        state: directory
     - name: install apache2
       apt: name=apache2 state=latest
 
     - name: start the apache service
       service: name=apache2 state=started
+    - name: copy our index.html.j2
+      template:
+        src: "files/index.html.j2"
+        dest: "/var/www/{{ http_host }}/index.html"
+    - name: copy our apache.conf.j2
+      template:
+        src: "files/apache.conf.j2"
+        dest: "/etc/apache2/site-available/{{ http_conf }}"
