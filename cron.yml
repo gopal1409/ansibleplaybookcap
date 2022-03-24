@@ -1,0 +1,31 @@
+---
+# YAML documents begin with the document separator ---
+
+# The minus in YAML this indicates a list item.  The playbook contains a list
+# of plays, with each play being a dictionary
+#any ansible play book run from top to bottom and left to right
+-
+
+  # Hosts: where our play will run and options it will run with
+  hosts: client2
+  #gather_facts: false
+  vars_files:
+    - vars/default.yml
+    
+    #all the variable will go into in mem
+  strategy: free
+
+  # Tasks: the list of tasks that will be executed within the play, this section
+  # can also be used for pre and post tasks
+  tasks:
+    - name: cron job 
+      ansible.builtin.cron:
+        name: "check logger"
+        state: present 
+        minute: "*/2"
+        hour: "*"
+        day: "*"
+        month: "*"
+        weekdays: "*"
+        job: 'logger "ansible-pilot"'
+      
