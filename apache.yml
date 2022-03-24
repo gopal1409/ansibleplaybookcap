@@ -33,4 +33,4 @@
     - name: copy our apache.conf.j2
       template:
         src: "files/apache.conf.j2"
-        dest: "/etc/apache2/site-available/{{ http_conf }}"
+        dest: "/etc/apache2/sites-available/{{ http_conf }}"
