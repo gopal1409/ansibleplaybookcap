@@ -19,7 +19,7 @@
       apt: update_cache=yes
     - name: create document for your doamin
       file:
-        path: "/var/www/{{ http_host }}"
+        path: "/var/www//html/{{ http_host }}"
         state: directory
     - name: install apache2
       apt: name=apache2 state=latest
