@@ -34,5 +34,5 @@
         src: /opt/apache-maven-3.8.5-bin.tar.gz
         dest: /opt/  
         remote_src: yes  
-    - name: mv ansible directory
+    - name: move ansible directory
       ansible.builtin.command: mv apache-maven-3.8.5 apachemaven
