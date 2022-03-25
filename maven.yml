@@ -1,0 +1,22 @@
+---
+# YAML documents begin with the document separator ---
+
+# The minus in YAML this indicates a list item.  The playbook contains a list
+# of plays, with each play being a dictionary
+#any ansible play book run from top to bottom and left to right
+-
+
+  # Hosts: where our play will run and options it will run with
+  hosts: client2
+  #gather_facts: false
+ 
+    
+    #all the variable will go into in mem
+  strategy: free
+
+  # Tasks: the list of tasks that will be executed within the play, this section
+  # can also be used for pre and post tasks
+  tasks:
+    name: update the system 
+    apt:
+    update_cache: yes
