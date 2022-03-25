@@ -35,5 +35,5 @@
         dest: /opt/  
         remote_src: yes  
     - name: move ansible directory
-      command: mv apache-maven-3.8.5 apachemaven
+      command: mv /opt/apache-maven-3.8.5 apachemaven
        
