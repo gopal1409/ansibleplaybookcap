@@ -36,6 +36,7 @@
         remote_src: yes  
     - name: move maven directory
       command: mv /opt/apache-maven-3.8.5 apachemaven
+      tags: move
     - name: create an apache run file
       file:
         path: /etc/profile.d/apachemaven.sh
