@@ -51,6 +51,6 @@
       become: yes
       
     - name: latest version of maven
-      command: mvn --version
+      shell: mvn --version
 
   
