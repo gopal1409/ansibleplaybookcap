@@ -54,6 +54,7 @@
       tags: profile
       become: yes  
     - name: latest version of maven
-      shell: mvn --version
+      comand: mvn --version
+      register: mavenversion
 
   
