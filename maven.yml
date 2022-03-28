@@ -54,7 +54,7 @@
       become: yes
       tags: profile
     - name: latest version of maven
-      comand: mvn --version
+      command: mvn --version
       register: mavenversion
     - name: Print maven version 
       debug:
