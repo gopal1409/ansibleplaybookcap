@@ -1,55 +1,55 @@
 ---
-# YAML documents begin with the document separator ---
-
-# The minus in YAML this indicates a list item.  The playbook contains a list
-# of plays, with each play being a dictionary
-#any ansible play book run from top to bottom and left to right
--
-
-  # Hosts: where our play will run and options it will run with
-  hosts: client2
-  #gather_facts: false
-  
-    
-    #all the variable will go into in mem
-  strategy: free
-
-  # Tasks: the list of tasks that will be executed within the play, this section
-  # can also be used for pre and post tasks
+- hosts: all
   tasks:
-    - name: update the casche
-      apt: update_cache=yes
-      tags: update
-    - name: Install openjdk-11-jdk  (state=present is optional)
+    - name: update the apt package 
       apt:
-        name: openjdk-11-jdk
-        state: present
-    - name: download latest release of maven
+        update_cache: yes
+    - name: install openjdk 11 or multiple package 
+      apt:
+        name: "{{ packages }}"
+        state: present 
+      vars:
+        packages:
+          - openjdk-11-jdk
+          - tree
+    - name: check the jdk version
+      command: java --version
+      register: javaversion #after executing the task i want to store the task value ina  varaibel
+    - name: Print Java version
+      debug:
+        msg: "Jave version install: {{javaversion.stdout}}"
+    - name: donwload latest release of maven and store in opt directory
       get_url:
         url: https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz
-        dest: /opt/
-        checksum: sha512:89ab8ece99292476447ef6a6800d9842bbb60787b9b8a45c103aa61d2f205a971d8c3ddfb8b03e514455b4173602bd015e82958c0b3ddc1728a57126f773c743
-    - name: Extract the maven archive file
-      ansible.builtin.unarchive:
+        dest: /opt
+    - name: unarchive the maven tar file
+      unarchive:
         src: /opt/apache-maven-3.8.5-bin.tar.gz
-        dest: /opt/  
-        remote_src: yes  
-    - name: move maven directory
-      command: mv /opt/apache-maven-3.8.5 apachemaven
-      tags: move
-    - name: create an apache run file
+        dest: /opt
+        remote_src: yes
+    - name: rename the module which we have downloaded
+      command: mv /opt/apache-maven-3.8.5 /opt/apache-maven
+      tags: skiprename
+    - name: create a file apache maven 
       file:
         path: /etc/profile.d/apachemaven.sh
         state: touch
-    - name: we need to add multiple lines inside my apache file
+    - name: we need to add maven configuration
       lineinfile:
         path: /etc/profile.d/apachemaven.sh
-        state: present
-        line: "{{ item }}" #if you want to do iteration you can do the same using items
+        state: present 
+        line: "{{item}}"
       with_items:
       - export JAVA_HOME=/usr/lib/jvm/default-java
       - export M2_HOME=/opt/apachemaven
       - export MAVEN_HOME=/opt/apachemaven
       - export PATH=${M2_HOME}/bin:${PATH}
+    - name: make the shell script executable
+      command: chmod +x /etc/profile.d/apachemaven.sh
+    - name: upload it in config of linux machine
+      shell: source /etc/profile.d/apachemaven.sh
+      
+    - name: latest version of maven
+      command: mvn --version
+
   
-       
