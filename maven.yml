@@ -40,7 +40,6 @@
         state: present 
         line: "{{item}}"
       with_items:
-      - export JAVA_HOME=/usr/lib/jvm/default-java
       - export M2_HOME=/opt/apachemaven
       - export MAVEN_HOME=/opt/apachemaven
       - export PATH=${M2_HOME}/bin:${PATH}
