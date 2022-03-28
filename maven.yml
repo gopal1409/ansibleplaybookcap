@@ -54,7 +54,7 @@
       become: yes
       tags: profile
     - name: latest version of maven
-      command: mvn --version
+      command: /etc/profile.d/maven.sh --version
       register: mavenversion
     - name: Print maven version 
       debug:
