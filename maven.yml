@@ -56,5 +56,7 @@
     - name: latest version of maven
       comand: mvn --version
       register: mavenversion
-
+    - name: Print maven version 
+      debug:
+        msg: "maven version install: {{mavenversion.stdout}}"
   
