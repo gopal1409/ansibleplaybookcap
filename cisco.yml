@@ -7,5 +7,15 @@
        cisco.ios.ios_facts:
          gather_subset:
          - config
-~
-~
+       register: result
+     - name: Display result to terminal
+       debug:
+         var: result.stdout_lines
+     - name: run show version on router
+       ios_command:
+         command: show version | incl Version
+       register: output
+     - name: print oputput
+       debug:
+         var: output.stdout_lines
+
