@@ -1,0 +1,32 @@
+---
+
+- name: Palo Alto Playbook
+  hosts: palo
+  gather_facts: false
+  connection: local
+
+  collections:
+    - paloaltonetworks.panos
+
+
+  vars:
+    palo_provider:
+      ip_address: '172.21.132.20'
+      api_key: LUFRPT14MW5xOEo1R09KVlBZNnpnemh0VHRBOWl6TGM9bXcwM3JHUGVhRlNiY0dCR0srNERUQT0
+  tasks:
+    - name: Add test rule 1 to the firewall
+    panos_security_rule:
+      provider: '{{ provider }}'
+      rule_name: 'Ansible test 1'
+      description: 'An Ansible test rule'
+      source_zone: ['internal']
+      destination_zone: ['external']
+      source_ip: ['1.2.3.4']
+      source_user: ['any']
+      destination_ip: ['any']
+      category: ['any']
+      application: ['any']
+      service: ['service-http']
+      hip_profiles: ['any']
+      action: 'allow'
+      commit: 'False'
